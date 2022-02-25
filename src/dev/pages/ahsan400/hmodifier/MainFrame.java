@@ -15,11 +15,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -61,6 +64,11 @@ public class MainFrame extends JFrame {
         btnAdd.addActionListener(this::btnAddAction);
         btnRemove.addActionListener(this::btnRemoveAction);
         btnLoadFromFile.addActionListener(this::btnLoadFromFileAction);
+
+        // On Select row Removed btn enable
+        table.getSelectionModel().addListSelectionListener(event -> {
+            btnRemove.setEnabled(true);
+        });
     }
 
     private void loadData() {
@@ -75,6 +83,27 @@ public class MainFrame extends JFrame {
     }
 
     private void btnRemoveAction(ActionEvent actionEvent) {
+        // counting total selected rows
+        int size = table.getSelectedRowCount();
+
+        // storing selected index in sorting them (ascending)
+        int[] rows = table.getSelectedRows();
+        Arrays.sort(rows);
+
+        // reversing arrays (else removing elements from ArrayList & Table may cause exceptions)
+        for (int i = 0; i < size / 2; i++) {
+            int tmp = rows[i];
+            rows[i] = rows[size - i - 1];
+            rows[size - i - 1] = tmp;
+        }
+
+        // removing selected index
+        hosts.removeHost(rows);
+        for (int index : rows) {
+            model.removeRow(index);
+            System.out.println(" - Removing Model");
+        }
+        btnRemove.setEnabled(false);
     }
 
     private void btnAddAction(ActionEvent actionEvent) {
@@ -96,6 +125,7 @@ public class MainFrame extends JFrame {
 
         btnRemove = new JButton("Remove");
         btnRemove.setFont(new Font("Segoe UI", 0, 16)); // NOI18N
+        btnRemove.setEnabled(false);
 
         btnLoadFromFile = new JButton("Load From File");
         btnLoadFromFile.setFont(new Font("Segoe UI", 0, 16)); // NOI18N

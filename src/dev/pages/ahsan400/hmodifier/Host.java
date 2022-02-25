@@ -10,10 +10,12 @@ public class Host {
     private String os;
     private String hostsFile;
     private ArrayList<String> hosts;
+    private ArrayList<String> comments;
 
     public Host() throws UnsupportedOperationException {
         init();
         hosts = new ArrayList<>();
+        comments = new ArrayList<>();
         readData();
     }
 
@@ -42,9 +44,12 @@ public class Host {
             BufferedReader br = new BufferedReader(new FileReader(this.hostsFile));
             String line;
             // read system hosts
-            while ((line = br.readLine()) != null)
+            while ((line = br.readLine()) != null) {
                 if (!line.startsWith("#") && !line.trim().isEmpty())
                     hosts.add(line);
+                else
+                    comments.add(line);
+            }
             br.close();
         } catch (IOException e) {
             System.err.println(" - Host file read failed!");
@@ -94,9 +99,39 @@ public class Host {
     }
 
 
+    public void removeHost(int[] index) {
+        try {
+            BufferedWriter bw  = new BufferedWriter(new FileWriter(this.hostsFile));
+            ArrayList<String> h = this.hosts;
+            ArrayList<String> c = this.comments;
+
+            // removing hosts according to index
+            for(int i: index) {
+                h.remove(i);
+            }
+
+            // adding comments
+            for(String l: c) {
+                bw.write(l);
+                bw.newLine();
+            }
+
+            // adding rest of the hosts
+            for(String url: h) {
+                bw.write(url);
+                bw.newLine();
+            }
+            bw.close();
+        } catch (IOException e) {
+            System.err.println(" - Host file write failed!");
+            e.printStackTrace();
+        }
+    }
+
+
     // Getter-setter
     //<editor-fold defaultstate="collapsed" desc=" Getter-Setter ">
-    ArrayList<String> getHosts() {
+    public ArrayList<String> getHosts() {
         return this.hosts;
     }
     //</editor-fold>
