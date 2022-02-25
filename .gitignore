@@ -29,3 +29,4 @@ src/META-INF/MANIFEST.MF
 
 # Exception
 !/src/lib/*
+!host-modifier-NetBeans.zip
