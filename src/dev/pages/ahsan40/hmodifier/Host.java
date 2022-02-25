@@ -1,4 +1,4 @@
-package dev.pages.ahsan400.hmodifier;
+package dev.pages.ahsan40.hmodifier;
 
 import javax.swing.table.DefaultTableModel;
 import java.io.*;
