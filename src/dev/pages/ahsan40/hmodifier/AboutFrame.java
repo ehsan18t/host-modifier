@@ -12,10 +12,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- *
  * @author Ahsan
  */
 public class AboutFrame extends JFrame {
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JLabel author;
+    private JLabel createdBy;
+    private JLabel github;
+    private JLabel source;
+    private JLabel title;
     public AboutFrame(JFrame frame) {
         initComponents();
         theme();
@@ -161,12 +166,5 @@ public class AboutFrame extends JFrame {
         }
         //</editor-fold>
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JLabel author;
-    private JLabel createdBy;
-    private JLabel github;
-    private JLabel source;
-    private JLabel title;
     // End of variables declaration//GEN-END:variables
 }
