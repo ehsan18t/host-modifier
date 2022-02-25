@@ -76,7 +76,7 @@ public class MainFrame extends JFrame {
         btnAbout.setBorderPainted(false);
         btnAbout.setFocusPainted(false);
         btnAbout.setContentAreaFilled(false);
-        btnAbout.setIcon(new ImageIcon("src/res/img/info.png")); // NOI18N
+        btnAbout.setIcon(new ImageIcon(Configs.aboutIcon)); // NOI18N
 
         btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Segoe UI", 0, 16)); // NOI18N
