@@ -1,5 +1,6 @@
 package dev.pages.ahsan40.hmodifier;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
@@ -76,7 +77,7 @@ public class MainFrame extends JFrame {
         btnAbout.setBorderPainted(false);
         btnAbout.setFocusPainted(false);
         btnAbout.setContentAreaFilled(false);
-        btnAbout.setIcon(new ImageIcon(Configs.aboutIcon)); // NOI18N
+        btnAbout.setIcon(new ImageIcon(Objects.requireNonNull(this.getClass().getResource(Configs.aboutIcon))));
 
         btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Segoe UI", 0, 16)); // NOI18N
