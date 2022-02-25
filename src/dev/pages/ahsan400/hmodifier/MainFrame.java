@@ -127,6 +127,7 @@ public class MainFrame extends JFrame {
     }
 
     private void btnAddAction(ActionEvent actionEvent) {
+        new NewItemFrame(hosts, model, this);
     }
 
     private void initComponents() {

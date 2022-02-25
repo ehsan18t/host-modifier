@@ -62,7 +62,7 @@ public class Host {
     public void blockSite(String url) {
         // Blocking single site
         try {
-            Files.write(Paths.get(this.hostsFile), ("127.0.0.1 " + url).getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get(this.hostsFile), ("127.0.0.1 " + url + "\n").getBytes(), StandardOpenOption.APPEND);
             hosts.add("127.0.0.1 " + url);
         } catch (IOException e) {
             System.err.println(" - Host file write failed!");
