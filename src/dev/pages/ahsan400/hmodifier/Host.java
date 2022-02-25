@@ -7,9 +7,9 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class Host {
-    String os;
-    String hostsFile;
-    ArrayList<String> hosts;
+    private String os;
+    private String hostsFile;
+    private ArrayList<String> hosts;
 
     public Host() throws UnsupportedOperationException {
         init();
@@ -91,4 +91,12 @@ public class Host {
             e.printStackTrace();
         }
     }
+
+
+    // Getter-setter
+    //<editor-fold defaultstate="collapsed" desc=" Getter-Setter ">
+    ArrayList<String> getHosts() {
+        return this.hosts;
+    }
+    //</editor-fold>
 }

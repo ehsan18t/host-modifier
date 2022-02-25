@@ -19,6 +19,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -42,6 +43,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         // init
         initComponents();
+        loadData();
         
         // window settings
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -59,6 +61,16 @@ public class MainFrame extends JFrame {
         btnAdd.addActionListener(this::btnAddAction);
         btnRemove.addActionListener(this::btnRemoveAction);
         btnLoadFromFile.addActionListener(this::btnLoadFromFileAction);
+    }
+
+    private void loadData() {
+        ArrayList<String> data = hosts.getHosts();
+        for (String line: data) {
+            if (!line.startsWith("#") && !line.trim().isEmpty()) {
+                String[] d = line.trim().split(" ");
+                model.addRow(d);
+            }
+        }
     }
 
     private void btnLoadFromFileAction(ActionEvent actionEvent) {
@@ -107,6 +119,10 @@ public class MainFrame extends JFrame {
         table.setModel(model);
         table.setRowHeight(35);
         table.getTableHeader().setPreferredSize(new Dimension(table.getWidth(), 35));
+
+        table.getColumnModel().getColumn(0).setPreferredWidth(170);
+        table.getColumnModel().getColumn(0).setMaxWidth(170);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         scrollPane.setViewportView(table);
 
         // Layout Settings
