@@ -66,10 +66,8 @@ public class MainFrame extends JFrame {
     private void loadData() {
         ArrayList<String> data = hosts.getHosts();
         for (String line: data) {
-            if (!line.startsWith("#") && !line.trim().isEmpty()) {
-                String[] d = line.trim().split(" ");
-                model.addRow(d);
-            }
+            String[] d = line.trim().split(" ");
+            model.addRow(d);
         }
     }
 

@@ -43,7 +43,8 @@ public class Host {
             String line;
             // read system hosts
             while ((line = br.readLine()) != null)
-                hosts.add(line);
+                if (!line.startsWith("#") && !line.trim().isEmpty())
+                    hosts.add(line);
             br.close();
         } catch (IOException e) {
             System.err.println(" - Host file read failed!");
