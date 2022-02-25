@@ -15,10 +15,12 @@ import java.awt.event.WindowEvent;
  */
 public class NewItemFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JLabel lblUrl;
-    private javax.swing.JTextField tfUrl;
+    private JButton btnAdd;
+    private JButton btnCancel;
+    private JLabel lblUrl;
+    private JTextField tfUrl;
+    // End of variables declaration
+
     public NewItemFrame(Host hosts, DefaultTableModel model, JFrame frame) {
         initComponents();
         theme();
@@ -60,10 +62,10 @@ public class NewItemFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        tfUrl = new javax.swing.JTextField();
-        btnAdd = new javax.swing.JButton();
-        lblUrl = new javax.swing.JLabel();
-        btnCancel = new javax.swing.JButton();
+        tfUrl = new JTextField();
+        btnAdd = new JButton();
+        lblUrl = new JLabel();
+        btnCancel = new JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,5 +123,4 @@ public class NewItemFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
-    // End of variables declaration
 }

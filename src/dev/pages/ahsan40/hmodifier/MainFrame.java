@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
 
     // Variables declaration
     //<editor-fold defaultstate="collapsed" desc=" Variable Declarations ">
-    private JButton jButton1;
+    private JButton btnAbout;
     private JButton btnAdd;
     private JButton btnRemove;
     private JButton btnLoadFromFile;
@@ -55,67 +55,12 @@ public class MainFrame extends JFrame {
         btnAdd.addActionListener(this::btnAddAction);
         btnRemove.addActionListener(this::btnRemoveAction);
         btnLoadFromFile.addActionListener(this::btnLoadFromFileAction);
+        btnAbout.addActionListener(this::btnAboutAction);
 
         // On Select row Removed btn enable
         table.getSelectionModel().addListSelectionListener(event -> {
             btnRemove.setEnabled(true);
         });
-    }
-
-    private void loadData() {
-        ArrayList<String> data = hosts.getHosts();
-        for (String line : data) {
-            String[] d = line.trim().split(" ");
-            model.addRow(d);
-        }
-    }
-
-    private void btnLoadFromFileAction(ActionEvent actionEvent) {
-        ArrayList<String> list = new ArrayList<>();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(Configs.exHost));
-            String line;
-
-            // read external hosts.txt
-            while ((line = br.readLine()) != null) {
-                list.add(Configs.redirectIP + line);
-            }
-            br.close();
-        } catch (IOException e) {
-            System.err.println(" - Host file read failed!");
-            e.printStackTrace();
-        }
-
-        hosts.blockSiteFromFile(list, model);
-        list.clear();
-    }
-
-    private void btnRemoveAction(ActionEvent actionEvent) {
-        // counting total selected rows
-        int size = table.getSelectedRowCount();
-
-        // storing selected index in sorting them (ascending)
-        int[] rows = table.getSelectedRows();
-        Arrays.sort(rows);
-
-        // reversing arrays (else removing elements from ArrayList & Table may cause exceptions)
-        for (int i = 0; i < size / 2; i++) {
-            int tmp = rows[i];
-            rows[i] = rows[size - i - 1];
-            rows[size - i - 1] = tmp;
-        }
-
-        // removing selected index
-        hosts.removeHost(rows);
-        for (int index : rows) {
-            model.removeRow(index);
-            System.out.println(" - Removing Model Index " + index);
-        }
-        btnRemove.setEnabled(false);
-    }
-
-    private void btnAddAction(ActionEvent actionEvent) {
-        new NewItemFrame(hosts, model, this);
     }
 
     private void initComponents() {
@@ -129,15 +74,12 @@ public class MainFrame extends JFrame {
         lblTable = new JLabel("Blocked Site List");
         lblTable.setFont(new Font("Segoe UI", 0, 18)); // NOI18N
 
-        jButton1 = new JButton();
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setIcon(new ImageIcon("C:\\Users\\Ahsan\\Documents\\NetBeansProjects\\host-modifier\\res\\img\\info.png")); // NOI18N
-        jButton1.addActionListener(evt -> {
-            // codes
-        });
+        btnAbout = new JButton();
+        btnAbout.setBorder(null);
+        btnAbout.setBorderPainted(false);
+        btnAbout.setFocusPainted(false);
+        btnAbout.setContentAreaFilled(false);
+        btnAbout.setIcon(new ImageIcon("src/res/img/info.png")); // NOI18N
 
         btnAdd = new JButton("Add");
         btnAdd.setFont(new Font("Segoe UI", 0, 16)); // NOI18N
@@ -195,7 +137,7 @@ public class MainFrame extends JFrame {
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(lblTable, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
+                                                                .addComponent(btnAbout, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
                                                 .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
@@ -204,7 +146,7 @@ public class MainFrame extends JFrame {
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(lblTable)
-                                        .addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnAbout, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
@@ -217,6 +159,66 @@ public class MainFrame extends JFrame {
 
         //</editor-fold>
         pack();
+    }
+
+    private void btnAboutAction(ActionEvent actionEvent) {
+        new AboutFrame(this);
+    }
+
+    private void loadData() {
+        ArrayList<String> data = hosts.getHosts();
+        for (String line : data) {
+            String[] d = line.trim().split(" ");
+            model.addRow(d);
+        }
+    }
+
+    private void btnLoadFromFileAction(ActionEvent actionEvent) {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(Configs.exHost));
+            String line;
+
+            // read external hosts.txt
+            while ((line = br.readLine()) != null) {
+                list.add(Configs.redirectIP + line);
+            }
+            br.close();
+        } catch (IOException e) {
+            System.err.println(" - Host file read failed!");
+            e.printStackTrace();
+        }
+
+        hosts.blockSiteFromFile(list, model);
+        list.clear();
+    }
+
+    private void btnRemoveAction(ActionEvent actionEvent) {
+        // counting total selected rows
+        int size = table.getSelectedRowCount();
+
+        // storing selected index in sorting them (ascending)
+        int[] rows = table.getSelectedRows();
+        Arrays.sort(rows);
+
+        // reversing arrays (else removing elements from ArrayList & Table may cause exceptions)
+        for (int i = 0; i < size / 2; i++) {
+            int tmp = rows[i];
+            rows[i] = rows[size - i - 1];
+            rows[size - i - 1] = tmp;
+        }
+
+        // removing selected index
+        hosts.removeHost(rows);
+        for (int index : rows) {
+            model.removeRow(index);
+            System.out.println(" - Removing Model Index " + index);
+        }
+        btnRemove.setEnabled(false);
+    }
+
+    private void btnAddAction(ActionEvent actionEvent) {
+        new NewItemFrame(hosts, model, this);
     }
 
     private void theme() {
