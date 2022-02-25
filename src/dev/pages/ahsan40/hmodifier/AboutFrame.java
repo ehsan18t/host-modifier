@@ -31,6 +31,7 @@ public class AboutFrame extends JFrame {
         setTitle("About Me");
         setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource(Configs.icon))).getImage());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
