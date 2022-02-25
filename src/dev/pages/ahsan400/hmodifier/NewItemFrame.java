@@ -9,13 +9,16 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
 /**
- *
  * @author Ahsan
  */
 public class NewItemFrame extends javax.swing.JFrame {
+    // Variables declaration - do not modify
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JLabel lblUrl;
+    private javax.swing.JTextField tfUrl;
     public NewItemFrame(Host hosts, DefaultTableModel model, JFrame frame) {
         initComponents();
         theme();
@@ -44,7 +47,7 @@ public class NewItemFrame extends javax.swing.JFrame {
         btnAdd.addActionListener(e -> {
             String url = tfUrl.getText().trim().replace(" ", "");
             hosts.blockSite(url);
-            model.addRow(new String[]{"127.0.0.1  ", url});
+            model.addRow(new String[]{Configs.redirectIP, url});
 
             // enabling main windows
             frame.setEnabled(true);
@@ -118,11 +121,5 @@ public class NewItemFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
-
-    // Variables declaration - do not modify
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JLabel lblUrl;
-    private javax.swing.JTextField tfUrl;
     // End of variables declaration
 }

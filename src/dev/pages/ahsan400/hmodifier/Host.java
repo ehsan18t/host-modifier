@@ -62,8 +62,8 @@ public class Host {
     public void blockSite(String url) {
         // Blocking single site
         try {
-            Files.write(Paths.get(this.hostsFile), ("127.0.0.1 " + url + "\n").getBytes(), StandardOpenOption.APPEND);
-            hosts.add("127.0.0.1 " + url);
+            Files.write(Paths.get(this.hostsFile), (Configs.redirectIP + url + "\n").getBytes(), StandardOpenOption.APPEND);
+            hosts.add(Configs.redirectIP + url);
         } catch (IOException e) {
             System.err.println(" - Host file write failed!");
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class Host {
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.hostsFile, true));
 
             // append all to system hosts file
-            for (String url: list) {
+            for (String url : list) {
                 bw.write(url);
                 bw.newLine();
                 this.hosts.add(url);
@@ -95,23 +95,23 @@ public class Host {
 
     public void removeHost(int[] index) {
         try {
-            BufferedWriter bw  = new BufferedWriter(new FileWriter(this.hostsFile));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(this.hostsFile));
             ArrayList<String> h = this.hosts;
             ArrayList<String> c = this.comments;
 
             // removing hosts according to index
-            for(int i: index) {
+            for (int i : index) {
                 h.remove(i);
             }
 
             // adding comments
-            for(String l: c) {
+            for (String l : c) {
                 bw.write(l);
                 bw.newLine();
             }
 
             // adding rest of the hosts
-            for(String url: h) {
+            for (String url : h) {
                 bw.write(url);
                 bw.newLine();
             }

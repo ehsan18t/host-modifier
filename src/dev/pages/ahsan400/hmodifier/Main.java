@@ -5,7 +5,6 @@
 package dev.pages.ahsan400.hmodifier;
 
 /**
- *
  * @author Ahsan
  */
 public class Main {
