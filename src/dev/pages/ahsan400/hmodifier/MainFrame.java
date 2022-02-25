@@ -21,6 +21,9 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -80,6 +83,23 @@ public class MainFrame extends JFrame {
     }
 
     private void btnLoadFromFileAction(ActionEvent actionEvent) {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(Configs.exHost));
+            String line;
+
+            // read external hosts.txt
+            while ((line = br.readLine()) != null) {
+                list.add("127.0.0.1 " + line);
+            }
+            br.close();
+        } catch (IOException e) {
+            System.err.println(" - Host file read failed!");
+            e.printStackTrace();
+        }
+
+        hosts.blockSiteFromFile(list, model);
+        list.clear();
     }
 
     private void btnRemoveAction(ActionEvent actionEvent) {
@@ -101,7 +121,7 @@ public class MainFrame extends JFrame {
         hosts.removeHost(rows);
         for (int index : rows) {
             model.removeRow(index);
-            System.out.println(" - Removing Model");
+            System.out.println(" - Removing Model Index " + index);
         }
         btnRemove.setEnabled(false);
     }

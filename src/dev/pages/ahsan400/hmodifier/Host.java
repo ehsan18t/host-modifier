@@ -1,5 +1,6 @@
 package dev.pages.ahsan400.hmodifier;
 
+import javax.swing.table.DefaultTableModel;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -69,29 +70,22 @@ public class Host {
         }
     }
 
-    void blockSiteFromFile(String path) {
+    void blockSiteFromFile(ArrayList<String> list, DefaultTableModel model) {
         // Blacking all sites inside 'hosts.txt' file
-        ArrayList<String> list = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path));
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.hostsFile, true));
-
-            String line;
-
-            // read external hosts.txt
-            while ((line = br.readLine()) != null) {
-                list.add("127.0.0.1 " + line);
-            }
-            br.close();
 
             // append all to system hosts file
             for (String url: list) {
                 bw.write(url);
                 bw.newLine();
                 this.hosts.add(url);
+
+                // adding data to table
+                String[] d = url.trim().split(" ");
+                model.addRow(d);
             }
             bw.close();
-            list.clear();
         } catch (IOException e) {
             System.err.println(" - Host file write failed!");
             e.printStackTrace();
