@@ -5,6 +5,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Objects;
 
 /**
  * @author Ahsan
@@ -25,6 +26,7 @@ public class NewItemFrame extends javax.swing.JFrame {
         // window settings
         setTitle("Add");
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource(Configs.icon))).getImage());
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

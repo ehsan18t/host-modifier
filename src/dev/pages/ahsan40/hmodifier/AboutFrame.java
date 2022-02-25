@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 /**
  * @author Ahsan
@@ -28,6 +29,7 @@ public class AboutFrame extends JFrame {
 
         // window settings
         setTitle("About Me");
+        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource(Configs.icon))).getImage());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
