@@ -9,9 +9,12 @@ import java.util.ArrayList;
 public class Host {
     String os;
     String hostsFile;
+    ArrayList<String> hosts;
 
     public Host() throws UnsupportedOperationException {
         init();
+        hosts = new ArrayList<>();
+        readData();
     }
 
     public void init() throws UnsupportedOperationException {
@@ -34,6 +37,20 @@ public class Host {
         }
     }
 
+    public void readData() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(this.hostsFile));
+            String line;
+            // read system hosts
+            while ((line = br.readLine()) != null)
+                hosts.add(line);
+            br.close();
+        } catch (IOException e) {
+            System.err.println(" - Host file read failed!");
+            e.printStackTrace();
+        }
+    }
+
 
     public void blockSite(String url) {
         // Blocking single site
@@ -49,7 +66,7 @@ public class Host {
         // Blacking all sites inside 'hosts.txt' file
         ArrayList<String> list = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader("hosts.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(path));
             BufferedWriter bw = new BufferedWriter(new FileWriter(this.hostsFile, true));
 
             String line;
@@ -64,6 +81,7 @@ public class Host {
             for (String url: list) {
                 bw.write(url);
                 bw.newLine();
+                this.hosts.add(url);
             }
             bw.close();
             list.clear();
