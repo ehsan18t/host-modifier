@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="host-modifier:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/host_modifier_jar</output-path>
+    <root id="archive" name="host-modifier.jar">
+      <element id="module-output" name="host-modifier" />
+    </root>
+  </artifact>
+</component>
