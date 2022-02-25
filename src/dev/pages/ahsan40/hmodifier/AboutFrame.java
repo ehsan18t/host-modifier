@@ -22,6 +22,8 @@ public class AboutFrame extends JFrame {
     private JLabel github;
     private JLabel source;
     private JLabel title;
+    // End of variables declaration//GEN-END:variables
+
     public AboutFrame(JFrame frame) {
         initComponents();
         theme();
@@ -169,5 +171,4 @@ public class AboutFrame extends JFrame {
         }
         //</editor-fold>
     }
-    // End of variables declaration//GEN-END:variables
 }
