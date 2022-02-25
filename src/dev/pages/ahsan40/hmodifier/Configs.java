@@ -9,7 +9,7 @@ package dev.pages.ahsan40.hmodifier;
  */
 public class Configs {
     public static final String title = "Host Modifier";
-    public static final String icon = "/res/icon.png";
+    public static final String icon = "/res/img/icon.png";
     public static final String version = "v1.0";
     public static final String exHost = "hosts.txt";
     public static final String redirectIP = "0.0.0.0 ";

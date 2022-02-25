@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * @author Ahsan
@@ -38,7 +39,7 @@ public class MainFrame extends JFrame {
         // window settings
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle(Configs.title + " " + Configs.version);
-//        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource(Config.icon))).getImage());
+        setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource(Configs.icon))).getImage());
         setResizable(false);
 
         // change default theme to "Nimbus"
